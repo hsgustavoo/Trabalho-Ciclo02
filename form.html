@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Desafio Ciclo 2</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i></a></li> 
+                <li><a href="form.html"><i class="fas fa-user-edit"></i></a></li> 
+                <li><a href="https://www.linkedin.com/in/gustavo-henrique-silva-1a3148275/"><i class="fas fa-envelope"></i></a></li> 
+            </ul>
+        </nav>
+        <h1>Bem-vindo ao trabalho do ciclo 2</h1>
+        <p>Nome do Aluno: Gustavo Henrique Silva</p>
+        <p>Curso: Desenvolvimento Front-end II</p>
+    </header>
+    </br>
+    </br>
+    <main>
+    <section class="photo-gallery">
+        <img src="TRABALHO CICLO 2.png" alt="Descrição da Foto 1">
+    </section>
+    <section>
+        <p>
+            Nesta parte do trabalho, elaboramos o formulário conforme as exigências explicadas pelo professor. 
+            Fomos orientados a criar um formulário com os campos "nome", "sobrenome", "email" e "idade". Esses 
+            campos, quando preenchidos pelo usuário, passam por uma validação dos dados e, caso sejam validados 
+            corretamente, são salvos no arquivo "dados.json" no formato de um objeto. Após esse processo, quando 
+            o usuário clicar no botão "Confirmar", ele será direcionado para uma página de confirmação dos dados, 
+            onde ocorrerá o salvamento final dos dados no arquivo .json.
+        </p>
+    </section>
+    </main>
+    <!-- Seu conteúdo existente -->
+    <section>
+        <h2>Registro de Usuário</h2>
+        <form id="registrationForm">
+            <fieldset>
+                <legend>Informações Pessoais</legend>
+                <div class="campo-formulario">
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nome" id="nome" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="sobrenome">Sobrenome:</label>
+                    <input type="text" name="sobrenome" id="sobrenome" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" required>
+                </div>
+                <div class="campo-formulario">
+                    <label for="idade">Idade:</label>
+                    <input type="number" name="idade" id="idade" required>
+                </div>
+            </fieldset>
+            <button type="submit" class="btn" id="nextButton">Próximo</button>
+        </form>
+    </section>
+    
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', (event) => {
+            event.preventDefault(); // Impede o envio normal do formulário
+
+            // Coleta os dados do formulário
+            const nome = document.getElementById('nome').value;
+            const sobrenome = document.getElementById('sobrenome').value;
+            const email = document.getElementById('email').value;
+            const idade = document.getElementById('idade').value;
+
+            // Validação dos campos
+            let valid = true;
+            let errorMessage = '';
+
+            // Validação do nome
+            if (nome.length < 3 || nome.length > 50) {
+                valid = false;
+                errorMessage += 'O nome deve ter entre 3 e 50 caracteres.\n';
+            }
+
+            // Validação do sobrenome
+            if (sobrenome.length < 3 || sobrenome.length > 50) {
+                valid = false;
+                errorMessage += 'O sobrenome deve ter entre 3 e 50 caracteres.\n';
+            }
+
+            // Validação do email
+            const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+            if (!emailPattern.test(email)) {
+                valid = false;
+                errorMessage += 'Por favor, insira um email válido.\n';
+            }
+
+            // Validação da idade
+            if (idade <= 0 || idade >= 120 || isNaN(idade)) {
+                valid = false;
+                errorMessage += 'A idade deve ser um número positivo e menor que 120.\n';
+            }
+
+            // Se todos os campos estiverem válidos
+            if (valid) {
+                const formData = {
+                    nome,
+                    sobrenome,
+                    email,
+                    idade
+                };
+
+                // Salva os dados no localStorage
+                localStorage.setItem('formData', JSON.stringify(formData));
+
+                // Redireciona para a página de confirmação
+                window.location.href = 'confirmacao.html';
+            } else {
+                // Exibe as mensagens de erro
+                alert(errorMessage);
+            }
+        });
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        // Captura os dados do formulário
+        const formData = {
+            nome: document.getElementById('nome').value,
+            sobrenome: document.getElementById('sobrenome').value,
+            email: document.getElementById('email').value,
+            idade: document.getElementById('idade').value
+        };
+
+        // Armazena os dados no localStorage
+        localStorage.setItem('formData', JSON.stringify(formData));
+
+        // Redireciona para a página de confirmação
+        window.location.href = 'confirmation.html';
+    });
+    </script>
+</body>
+</html>
+
+

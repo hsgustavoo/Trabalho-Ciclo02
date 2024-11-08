@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Desafio Ciclo 2</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i></a></li> 
+                <li><a href="form.html"><i class="fas fa-user-edit"></i></a></li> 
+                <li><a href="https://www.linkedin.com/in/gustavo-henrique-silva-1a3148275/"><i class="fas fa-envelope"></i></a></li> 
+            </ul>
+        </nav>
+        <h1>Bem-vindo ao trabalho do ciclo 2</h1>
+        <p>Nome do Aluno: Gustavo Henrique Silva</p>
+        <p>Curso: Desenvolvimento Front-end II</p>
+    </header>
+    <main>
+        <section>
+            <p>
+                Neste estágio final do trabalho, foi solicitada a última validação dos dados do usuário, 
+                juntamente com o salvamento dessas informações em um arquivo chamado "data.json". Quando 
+                o usuário pressiona o botão de confirmação, as informações são salvas e o sistema redireciona 
+                para a página inicial.
+            </p>
+            <p>
+                Além do código, o professor também solicitou que fosse entregue um texto, por meio de uma de 
+                nossas plataformas de entrega de trabalho, contendo o link de acesso ao código da aplicação, 
+                bem como o link para um vídeo produzido por nós. O objetivo é que o professor possa validar o 
+                funcionamento do código e fornecer o feedback necessário para eventuais correções.
+            </p>
+        </section>
+
+        <section class="photo-gallery">
+            <img src="TRABALHO CICLO 2.png" alt="Descrição da Foto 1">
+        </section>
+        
+        <section id="confirmacao" class="section">
+            <div class="container">
+                <h1>Confirmação dos Dados</h1>
+                <p>Por favor, revise e confirme os dados abaixo:</p>
+                <div class="dados-confirmacao">
+                    <p><strong>Nome:</strong> <span id="conf-nome"></span></p>
+                    <p><strong>Sobrenome:</strong> <span id="conf-sobrenome"></span></p>
+                    <p><strong>Email:</strong> <span id="conf-email"></span></p>
+                    <p><strong>Idade:</strong> <span id="conf-idade"></span></p>
+                </div>
+                <div class="buttons">
+                    <button onclick="window.location.href='index.html'" class="btn cancel-btn">Cancelar</button>
+                    <button onclick="window.location.href='form.html'" class="btn back-btn">Voltar</button>
+                    <button id="confirm-btn" class="btn confirm-btn">Confirmar</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script>
+        // Recupera os dados do localStorage e preenche os campos de confirmação
+        document.addEventListener('DOMContentLoaded', () => {
+            const formData = JSON.parse(localStorage.getItem('formData'));
+    
+            if (formData) {
+                document.getElementById('conf-nome').textContent = formData.nome;
+                document.getElementById('conf-sobrenome').textContent = formData.sobrenome;
+                document.getElementById('conf-email').textContent = formData.email;
+                document.getElementById('conf-idade').textContent = formData.idade;
+            }
+    
+            // Adiciona funcionalidade ao botão "Confirmar" para baixar os dados como arquivo JSON
+            document.getElementById('confirm-btn').addEventListener('click', () => {
+                if (formData) {
+                    // Converte os dados para JSON e prepara para download
+                    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(formData));
+                    
+                    // Cria um link temporário
+                    const downloadAnchorNode = document.createElement('a');
+                    downloadAnchorNode.setAttribute("href", dataStr);
+                    downloadAnchorNode.setAttribute("download", "dados_confirmados.json");
+                    document.body.appendChild(downloadAnchorNode);
+                    
+                    // Inicia o download
+                    downloadAnchorNode.click();
+                    downloadAnchorNode.remove();
+    
+                    // Redireciona para a página inicial após o download
+                    window.location.href = 'index.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
